@@ -10,7 +10,7 @@ const Login = () => {
   const handleLogin = async () => {
     try {
       await login(email, password);
-      window.location.href = '/tasks'; // Redireciona para a lista de tarefas
+      window.location.href = '/tasks'; 
     } catch (err) {
       setError('Falha ao fazer login');
     }
