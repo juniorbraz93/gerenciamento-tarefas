@@ -39,4 +39,4 @@ app.include_router(tasks.router)
 
 @app.get("/")
 def root():
-    return {"message": "ToDo API online"}
+    return {"message": "server is online"}
