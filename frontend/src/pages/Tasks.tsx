@@ -196,7 +196,7 @@ const Tasks: React.FC = () => {
             </div>
 
             {/* Formulário de criação */}
-            <form onSubmit={handleAddTask}>
+            <form className='form-task' onSubmit={handleAddTask}>
                 <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Título" required />
                 <textarea value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Descrição" />
                 <input type="datetime-local" value={deadline} onChange={(e) => setDeadline(e.target.value)} />
@@ -260,7 +260,7 @@ const Tasks: React.FC = () => {
                 <div className="modal-overlay" onClick={closeEditModal}>
                     <div className="modal-content" onClick={(e) => e.stopPropagation()}>
                         <h3>Editar Tarefa</h3>
-                        <form onSubmit={handleEditTask}>
+                        <form className='form-task' onSubmit={handleEditTask}>
                             <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Título" required />
                             <textarea value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Descrição" />
                             <input type="datetime-local" value={deadline} onChange={(e) => setDeadline(e.target.value)} />
