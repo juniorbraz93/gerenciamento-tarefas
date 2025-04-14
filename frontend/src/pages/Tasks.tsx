@@ -21,6 +21,7 @@ const fetchTasks = async (): Promise<Task[]> => {
 const Tasks: React.FC = () => {
     const { data, error, isLoading, refetch } = useQuery<Task[]>('tasks', fetchTasks);
     const { user, logout } = useAuth();
+
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [deadline, setDeadline] = useState('');
@@ -29,6 +30,45 @@ const Tasks: React.FC = () => {
     const [selectedTask, setSelectedTask] = useState<Task | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+
+    // Filtros
+    const [filterPriority, setFilterPriority] = useState('');
+    const [filterTitle, setFilterTitle] = useState('');
+    const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
+
+    // Paginação
+    const tasksPerPage = 5;
+    const [currentPage, setCurrentPage] = useState(1);
+
+    const filteredTasks = data
+        ?.filter((task) =>
+            task.title.toLowerCase().includes(filterTitle.toLowerCase()) &&
+            (filterPriority === '' || task.priority === filterPriority)
+        )
+        .sort((a, b) => {
+            const dateA = new Date(a.deadline).getTime();
+            const dateB = new Date(b.deadline).getTime();
+            return sortOrder === 'asc' ? dateA - dateB : dateB - dateA;
+        }) || [];
+
+    const totalPages = Math.ceil(filteredTasks.length / tasksPerPage);
+    const paginatedTasks = filteredTasks.slice(
+        (currentPage - 1) * tasksPerPage,
+        currentPage * tasksPerPage
+    );
+
+    const resetFilters = () => {
+        setFilterTitle('');
+        setFilterPriority('');
+        setSortOrder('asc');
+        setCurrentPage(1);
+    };
+
+    const handlePageChange = (page: number) => {
+        if (page >= 1 && page <= totalPages) {
+            setCurrentPage(page);
+        }
+    };
 
     const handleAddTask = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -123,6 +163,39 @@ const Tasks: React.FC = () => {
             <p>Bem-vindo, {user?.email}</p>
             <button onClick={logout}>Sair</button>
 
+            {/* Filtros */}
+            <div className="filtros" style={{ display: 'flex', gap: '1rem', margin: '1rem 0' }}>
+                <input
+                    type="text"
+                    placeholder="Filtrar por título"
+                    value={filterTitle}
+                    onChange={(e) => setFilterTitle(e.target.value)}
+                    style={{ padding: '0.5rem', borderRadius: '6px', border: '1px solid #ccc' }}
+                />
+                <select
+                    value={filterPriority}
+                    onChange={(e) => setFilterPriority(e.target.value)}
+                    style={{ padding: '0.5rem', borderRadius: '6px', border: '1px solid #ccc' }}
+                >
+                    <option value="">Todas as prioridades</option>
+                    <option value="baixa">Baixa</option>
+                    <option value="média">Média</option>
+                    <option value="alta">Alta</option>
+                </select>
+                <select
+                    value={sortOrder}
+                    onChange={(e) => setSortOrder(e.target.value as 'asc' | 'desc')}
+                    style={{ padding: '0.5rem', borderRadius: '6px', border: '1px solid #ccc' }}
+                >
+                    <option value="asc">Mais próximas primeiro</option>
+                    <option value="desc">Mais distantes primeiro</option>
+                </select>
+                <button onClick={resetFilters} style={{ padding: '0.5rem 1rem' }}>
+                    Limpar Filtros
+                </button>
+            </div>
+
+            {/* Formulário de criação */}
             <form onSubmit={handleAddTask}>
                 <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Título" required />
                 <textarea value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Descrição" />
@@ -136,8 +209,9 @@ const Tasks: React.FC = () => {
                 <button type="submit">Adicionar Tarefa</button>
             </form>
 
+            {/* Lista de tarefas */}
             <ul>
-                {data?.map((task) => (
+                {paginatedTasks.map((task) => (
                     <li key={task.id} onClick={() => openModal(task)}>
                         {task.title}
                         <button onClick={(e) => { e.stopPropagation(); openEditModal(task); }}>Editar</button>
@@ -146,6 +220,28 @@ const Tasks: React.FC = () => {
                 ))}
             </ul>
 
+            {/* Paginação */}
+            {totalPages > 1 && (
+                <div className="pagination" style={{ marginTop: '1rem', display: 'flex', gap: '0.5rem' }}>
+                    <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
+                        Anterior
+                    </button>
+                    {Array.from({ length: totalPages }, (_, i) => (
+                        <button
+                            key={i}
+                            onClick={() => handlePageChange(i + 1)}
+                            style={{ fontWeight: currentPage === i + 1 ? 'bold' : 'normal' }}
+                        >
+                            {i + 1}
+                        </button>
+                    ))}
+                    <button onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages}>
+                        Próxima
+                    </button>
+                </div>
+            )}
+
+            {/* Modal de visualização */}
             {isModalOpen && selectedTask && (
                 <div className="modal-overlay" onClick={closeModal}>
                     <div className="modal-content" onClick={(e) => e.stopPropagation()}>
@@ -159,6 +255,7 @@ const Tasks: React.FC = () => {
                 </div>
             )}
 
+            {/* Modal de edição */}
             {isEditModalOpen && selectedTask && (
                 <div className="modal-overlay" onClick={closeEditModal}>
                     <div className="modal-content" onClick={(e) => e.stopPropagation()}>
