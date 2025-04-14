@@ -1,7 +1,33 @@
+# Arquivos de ambiente
 .env
-app\__pycache__
-app\api\__pycache__
-app\core\__pycache__
-app\crud\__pycache__
-app\models\__pycache__
-app\schemas\__pycache__
+*.env
+
+# Bytecode Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Diretórios comuns
+.env/
+venv/
+.venv/
+env/
+ENV/
+
+# Cache do pip
+pip-wheel-metadata/
+*.egg-info/
+dist/
+build/
+
+# Arquivos de log
+*.log
+
+# IDEs e editores
+.vscode/
+.idea/
+*.swp
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
