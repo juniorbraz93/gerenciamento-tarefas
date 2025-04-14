@@ -102,7 +102,7 @@ form textarea:focus {
 form button[type="submit"] {
   padding: 10px 20px;
   font-weight: bold;
-  background: linear-gradient(to right, #4CAF50, #81C784);
+  background: linear-gradient(45deg, #6a0dad, #1e90ff);
   color: var(--preto);
   border: none;
   border-radius: 8px;
@@ -111,7 +111,7 @@ form button[type="submit"] {
 }
 
 form button[type="submit"]:hover {
-  background: linear-gradient(to right, #43A047, #66BB6A);
+  background: linear-gradient(45deg, #6a0dad, #1e90ff);
 }
 
 
