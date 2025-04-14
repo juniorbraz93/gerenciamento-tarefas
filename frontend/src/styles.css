@@ -51,6 +51,7 @@ body {
 
 /* Formulários */
 form {
+  padding: 10px ;
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -216,3 +217,25 @@ ul li button:hover {
   background-color: #0056b3;
 }
 
+.btn-deletar {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(45deg, #ff0000, #ffffff); /* vermelho para branco */
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-deletar:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px var(--sombra-base);
+  background: linear-gradient(45deg, #cc0000, #ffffff); /* um vermelho mais escuro no hover */
+}
+
+.btn-deletar:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 4px var(--sombra-base);
+}
