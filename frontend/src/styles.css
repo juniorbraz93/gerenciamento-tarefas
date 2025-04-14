@@ -1,0 +1,218 @@
+/* Paleta de Cores */
+:root {
+  --roxo-escuro: #4B0082;
+  --roxo-claro: #8A2BE2;
+  --azul-escuro: #0000CD;
+  --azul-claro: #1E90FF;
+  --branco: #FFFFFF;
+  --preto: #000000;
+  --cinza-claro: #F5F5F5;
+  --cinza-escuro: #333333;
+  --sombra-base: rgba(0, 0, 0, 0.1);
+  --transicao: 0.3s ease;
+}
+
+/* Estilo Global */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, var(--roxo-claro), var(--azul-claro));
+  color: var(--branco);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+/* Container Principal */
+.container {
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 8px 16px var(--sombra-base);
+  width: 100%;
+  max-width: 450px;
+  text-align: center;
+  transition: transform var(--transicao);
+}
+
+.container:hover {
+  transform: scale(1.02);
+}
+
+/* Títulos */
+.container h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--azul-claro);
+}
+
+/* Formulários */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Estilo de Campos de Entrada */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="datetime-local"],
+textarea,
+select {
+  padding: 12px;
+  border-radius: 6px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border: 1px solid var(--cinza-claro);
+  color: var(--preto);
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="datetime-local"]:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--azul-claro);
+  outline: none;
+  box-shadow: 0 0 8px var(--azul-claro);
+}
+
+input::placeholder {
+  color: var(--preto);
+}
+
+/* Botão com efeito de degradê */
+button {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(45deg, #6a0dad, #1e90ff); /* Degradê de roxo para azul */
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: transform var(--transicao), box-shadow var(--transicao), background-color var(--transicao);
+}
+
+button:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px var(--sombra-base);
+  background-color: #6a0dad; /* Alterna para um roxo mais forte */
+}
+
+button:active {
+  transform: translateY(2px);
+  box-shadow: 0 4px 8px var(--sombra-base);
+}
+
+/* Estilo geral da página de tarefas */
+.tasks-container {
+  background-color: var(--cinza-claro);
+  color: var(--roxo-escuro);
+  font-family: 'Arial', sans-serif;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px var(--sombra-base);
+  max-width: 600px;
+  margin: 20px auto;
+  transition: transform var(--transicao);
+}
+
+.tasks-container:hover {
+  transform: scale(1.01);
+}
+
+.tasks-container h2 {
+  text-align: center;
+  color: var(--azul-claro);
+}
+
+.tasks-container p {
+  font-size: 1.1em;
+  margin-bottom: 20px;
+}
+
+/* Estilo da lista de tarefas */
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+ul li {
+  background-color: var(--azul-claro);
+  margin: 10px 0;
+  padding: 12px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px var(--sombra-base);
+  font-size: 1.1em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: transform var(--transicao);
+}
+
+ul li:hover {
+  transform: translateX(10px);
+}
+
+ul li button {
+  padding: 8px 16px;
+  background-color: var(--azul-claro);
+  color: var(--branco);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color var(--transicao);
+}
+
+ul li button:hover {
+  background-color: var(--roxo-claro);
+}
+
+/* Modal overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Fundo semitransparente */
+  display: flex;
+  justify-content: center; /* Alinha horizontalmente no centro */
+  align-items: center; /* Alinha verticalmente no centro */
+  z-index: 1000; /* Para garantir que fique sobre outros conteúdos */
+}
+
+/* Conteúdo do modal */
+.modal-content {
+  background-color: var(--azul-claro);
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  overflow: auto; /* Garante que, se o conteúdo for muito grande, será rolável */
+}
+
+/* Estilo do botão de fechar */
+.modal-content button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.modal-content button:hover {
+  background-color: #0056b3;
+}
+

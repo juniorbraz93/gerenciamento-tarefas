@@ -1,5 +1,6 @@
 from fastapi import FastAPI
-from starlette.middleware.cors import CORSMiddleware
+from fastapi.middleware.cors import CORSMiddleware
+# from starlette.middleware.cors import CORSMiddleware
 from app.core.database import Base, engine
 from app.models import user, task
 from app.api import auth, tasks
@@ -17,17 +18,18 @@ from app.api import auth, tasks
 app = FastAPI()
 
 # Configuração do CORS para permitir requisições do frontend
+# Configuração de CORS
 origins = [
-    "http://localhost:3000",  # Endereço do React no ambiente de desenvolvimento
-    "https://meu-frontend.com",  # Coloque o URL do seu frontend em produção
+    "http://localhost:3000",  # Permite o frontend rodando no localhost:3000
+    # Se você tiver outros domínios, pode adicionar aqui
 ]
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,  # Lista de origens permitidas
+    allow_origins=origins,  # Permite as origens especificadas
     allow_credentials=True,
-    allow_methods=["*"],  # Permite todos os métodos HTTP (GET, POST, etc)
-    allow_headers=["*"],  # Permite todos os headers
+    allow_methods=["*"],  # Permite todos os métodos (GET, POST, etc)
+    allow_headers=["*"],  # Permite todos os cabeçalhos
 )
 
 # Criação automática das tabelas
