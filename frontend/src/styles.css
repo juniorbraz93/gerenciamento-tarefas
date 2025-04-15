@@ -15,6 +15,8 @@
 /* Estilo Global */
 body {
   margin: 0;
+  padding: 0;
+  overflow-x: hidden;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: linear-gradient(135deg, var(--roxo-claro), var(--azul-claro));
   color: var(--branco);
@@ -52,7 +54,7 @@ body {
   margin-bottom: 20px;
   font-size: 24px;
   font-weight: bold;
-  color: var(--azul-claro);
+  color: var(--cinza-claro);
 }
 
 /* Formulários */
@@ -67,6 +69,13 @@ body {
   max-width: 600px;
   margin: 0 auto;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.form-task h2{
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--cinza-claro);
 }
 
 form {
@@ -180,15 +189,17 @@ button:active {
 
 /* Estilo geral da página de tarefas */
 .tasks-container {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
   background-color: var(--cinza-claro);
   color: var(--roxo-escuro);
   font-family: 'Arial', sans-serif;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 8px var(--sombra-base);
-  max-width: 600px;
-  margin: 20px auto;
   transition: transform var(--transicao);
+  box-sizing: border-box;
 }
 
 .tasks-container:hover {
@@ -197,7 +208,7 @@ button:active {
 
 .tasks-container h2 {
   text-align: center;
-  color: var(--azul-claro);
+  color: var(--cinza-claro);
 }
 
 .tasks-container p {
@@ -208,34 +219,44 @@ button:active {
 /* Estilo da lista de tarefas */
 ul {
   list-style-type: none;
-  padding: 20px;
+  padding: 0;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 ul li {
   background-color: var(--azul-claro);
-  margin: 10px 0;
   padding: 20px;
-  border-radius: 5px;
+  border-radius: 10px;
   box-shadow: 0 2px 4px var(--sombra-base);
   font-size: 1.1em;
   display: flex;
   justify-content: space-between;
   align-items: center;
   transition: transform var(--transicao);
+  width: 100%;
+  box-sizing: border-box;
+  margin: 10px 0;  /* ou só top/bottom */
 }
 
 ul li:hover {
   transform: translateX(10px);
 }
 
+.btn-group {
+  display: flex;
+  gap: 15px;
+  margin-left: auto; /* joga o grupo pra direita */
+}
+
 ul li button {
-  padding: 8px 16px;
-  background-color: var(--azul-claro);
-  color: var(--branco);
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color var(--transicao);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 ul li button:hover {
@@ -254,6 +275,7 @@ ul li button:hover {
   justify-content: center; /* Alinha horizontalmente no centro */
   align-items: center; /* Alinha verticalmente no centro */
   z-index: 1000; /* Para garantir que fique sobre outros conteúdos */
+  overflow: hidden; /* Evita scroll extra */
 }
 
 /* Conteúdo do modal */
@@ -261,21 +283,26 @@ ul li button:hover {
   background-color: var(--azul-claro);
   padding: 20px;
   border-radius: 8px;
-  max-width: 500px;
+  max-width: 90vw; /* Nunca ultrapassa a tela */
   width: 100%;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  overflow: auto; /* Garante que, se o conteúdo for muito grande, será rolável */
+  max-height: 90vh; /* Para evitar que o modal fique maior que a tela */
+  overflow-y: auto;
+  overflow-x: hidden; /* Remove a barra de rolagem horizontal */
+  box-sizing: border-box; /* Garante que padding não estoure o width */
+  word-wrap: break-word;
 }
 
 /* Estilo do botão de fechar */
 .modal-content button {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  font-size: 16px;
-  border-radius: 4px;
-  cursor: pointer;
+  background-color: var(--azul-claro);
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 90vw; /* usa a largura da viewport para evitar overflow */
+  width: 100%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  overflow: auto;
+  max-height: 90vh; /* evita que o modal passe da altura da tela */
 }
 
 .modal-content button:hover {
@@ -303,4 +330,13 @@ ul li button:hover {
 .btn-deletar:active {
   transform: translateY(1px);
   box-shadow: 0 2px 4px var(--sombra-base);
+}
+
+.login-logo {
+  border-radius: 10px;
+  width: 200px; /* Ajuste como quiser */
+  margin-bottom: 10px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }

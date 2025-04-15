@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
 import '../styles.css';
+import loginImg from '../assets/images/login-fb.jpg';
 
 const Login: React.FC = () => {
   const { login } = useAuth();
@@ -22,6 +23,13 @@ const Login: React.FC = () => {
 
   return (
     <div className="container">
+      {/* Imagem acima do título */}
+      <img
+        src={loginImg}
+        alt="Logo do sistema"
+        className="login-logo"
+      />
+      
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
         <input

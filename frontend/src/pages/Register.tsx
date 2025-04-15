@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import axiosInstance from '../services/axios';
 import { Link, useNavigate } from 'react-router-dom';
 import '../styles.css';
+import RegImg from '../assets/images/reguser-fb.jpg';
+
 
 const Register: React.FC = () => {
   const navigate = useNavigate();
@@ -34,6 +36,12 @@ const Register: React.FC = () => {
   return (
     <div className="container">
         <form onSubmit={handleSubmit}>
+          {/* Imagem acima do título */}
+      <img
+        src={RegImg}
+        alt="Logo do sistema"
+        className="login-logo"
+      />
       <h2>Registrar</h2>
       <input
         type="text"

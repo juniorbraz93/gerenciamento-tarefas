@@ -3,6 +3,8 @@ import { useQuery } from 'react-query';
 import axiosInstance from '../services/axios';
 import { useAuth } from '../context/AuthContext';
 import '../styles.css';
+import CadImg from '../assets/images/cadastrotask-fb.jpg';
+
 
 interface Task {
     id: number;
@@ -159,7 +161,7 @@ const Tasks: React.FC = () => {
 
     return (
         <div className="container">
-            <h2>Tarefas</h2>
+            <h2>Gerenciador de Tarefas</h2>
             <p>Bem-vindo, {user?.email}</p>
             <button onClick={logout}>Sair</button>
 
@@ -195,27 +197,66 @@ const Tasks: React.FC = () => {
                 </button>
             </div>
 
+            <button
+                onClick={() => setIsModalOpen(true)}
+                style={{ padding: '0.5rem 1rem', backgroundColor: '#4CAF50', color: 'white', border: 'none', borderRadius: '6px' }}
+            >
+                Cadastrar Tarefa
+            </button>
+
             {/* Formulário de criação */}
-            <form className='form-task' onSubmit={handleAddTask}>
-                <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Título" required />
-                <textarea value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Descrição" />
-                <input type="datetime-local" value={deadline} onChange={(e) => setDeadline(e.target.value)} />
-                <select value={priority} onChange={(e) => setPriority(e.target.value)}>
-                    <option value="baixa">Baixa</option>
-                    <option value="média">Média</option>
-                    <option value="alta">Alta</option>
-                </select>
-                <input type="text" value={tags} onChange={(e) => setTags(e.target.value)} placeholder="Tags" />
-                <button type="submit">Adicionar Tarefa</button>
-            </form>
+            {isModalOpen && (
+                <div className="modal-overlay" onClick={closeModal}>
+                    <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+                        <img src={CadImg} alt="Cadastro de Tarefa" className="login-logo" />
+                        <h2>Cadastrar Tasks</h2>
+                        <form className="form-task" onSubmit={handleAddTask}>
+                            <input
+                                type="text"
+                                value={title}
+                                onChange={(e) => setTitle(e.target.value)}
+                                placeholder="Título"
+                                required
+                            />
+                            <textarea
+                                value={description}
+                                onChange={(e) => setDescription(e.target.value)}
+                                placeholder="Descrição"
+                            />
+                            <input
+                                type="datetime-local"
+                                value={deadline}
+                                onChange={(e) => setDeadline(e.target.value)}
+                            />
+                            <select value={priority} onChange={(e) => setPriority(e.target.value)}>
+                                <option value="baixa">Baixa</option>
+                                <option value="média">Média</option>
+                                <option value="alta">Alta</option>
+                            </select>
+                            <input
+                                type="text"
+                                value={tags}
+                                onChange={(e) => setTags(e.target.value)}
+                                placeholder="Tags"
+                            />
+                            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                <button type="submit">Adicionar</button>
+                                <button type="button" onClick={closeModal}>Cancelar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
 
             {/* Lista de tarefas */}
             <ul>
                 {paginatedTasks.map((task) => (
                     <li key={task.id} onClick={() => openModal(task)}>
                         {task.title}
-                        <button onClick={(e) => { e.stopPropagation(); openEditModal(task); }}>Editar</button>
-                        <button className="btn-deletar" onClick={(e) => { e.stopPropagation(); handleDeleteTask(task.id); }}>Excluir</button>
+                        <div className="btn-group">
+                            <button onClick={(e) => { e.stopPropagation(); openEditModal(task); }}>Editar</button>
+                            <button className="btn-deletar" onClick={(e) => { e.stopPropagation(); handleDeleteTask(task.id); }}>Excluir</button>
+                        </div>
                     </li>
                 ))}
             </ul>
