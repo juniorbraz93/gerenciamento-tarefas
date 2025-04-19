@@ -52,9 +52,9 @@ body {
 /* Títulos */
 .container h2 {
   margin-bottom: 20px;
-  font-size: 24px;
+  font-size: 36px;
   font-weight: bold;
-  color: var(--cinza-claro);
+  color: var(--cinza-escuro);
 }
 
 /* Formulários */

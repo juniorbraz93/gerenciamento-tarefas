@@ -208,7 +208,7 @@ const Tasks: React.FC = () => {
             {isModalOpen && (
                 <div className="modal-overlay" onClick={closeModal}>
                     <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-                        <img src={CadImg} alt="Cadastro de Tarefa" className="login-logo" />
+                        {/* <img src={CadImg} alt="Cadastro de Tarefa" className="login-logo" /> */}
                         <h2>Cadastrar Tasks</h2>
                         <form className="form-task" onSubmit={handleAddTask}>
                             <input
@@ -239,10 +239,19 @@ const Tasks: React.FC = () => {
                                 onChange={(e) => setTags(e.target.value)}
                                 placeholder="Tags"
                             />
-                            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                            {/* <div style={{ display: 'flex', justifyContent: 'space-between' }}> */}
                                 <button type="submit">Adicionar</button>
-                                <button type="button" onClick={closeModal}>Cancelar</button>
-                            </div>
+                                <button
+                                    type="button"
+                                    onClick={closeModal}
+                                    style={{
+                                        background: 'linear-gradient(45deg, #ff0000, #ffffff)',
+                                        color: 'white'
+                                    }}
+                                    >
+                                    Cancelar
+                                </button>
+                            {/* </div> */}
                         </form>
                     </div>
                 </div>
@@ -312,7 +321,16 @@ const Tasks: React.FC = () => {
                             </select>
                             <input type="text" value={tags} onChange={(e) => setTags(e.target.value)} placeholder="Tags" />
                             <button type="submit">Salvar</button>
-                            <button type="button" onClick={closeEditModal}>Cancelar</button>
+                            <button
+                                    type="button"
+                                    onClick={closeModal}
+                                    style={{
+                                        background: 'linear-gradient(45deg, #ff0000, #ffffff)',
+                                        color: 'white'
+                                    }}
+                                    >
+                                    Cancelar
+                                </button>
                         </form>
                     </div>
                 </div>
